@@ -1,5 +1,5 @@
 [app]
-title = My Game
+title = Ролтон с огоньком 
 package.name = mygame
 package.domain = org.test
 source.dir = .
