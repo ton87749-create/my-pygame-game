@@ -1,31 +1,13 @@
-name: Build APK
-on: [push, workflow_dispatch]
-
-jobs:
-  build:
-    runs-on: ubuntu-22.04
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-      - run: |
-          sudo apt-get update
-          sudo apt-get install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev cmake libffi-dev libssl-dev
-          pip install cython==0.29.36
-          pip install buildozer
-      - run: |
-          yes | buildozer android clean
-          yes | buildozer android debug 2>&1 | tail -n 200 > buildozer.log
-      - uses: actions/upload-artifact@v4
-        with:
-          name: debug-apk
-          path: |
-            bin/*.apk
-            **/*.apk
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: build-log
-          path: buildozer.log
+[app]
+title = Ролтон с огоньком
+package.name = mygame
+package.domain = org.test
+source.dir = .
+source.include_exts = py,png,jpg,kv,atlas
+version = 0.1
+requirements = python3,pygame==2.0.1
+orientation = portrait
+fullscreen = 1
+android.api = 30
+android.minapi = 21
+android.ndk = 25b
