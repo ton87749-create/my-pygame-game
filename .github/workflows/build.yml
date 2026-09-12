@@ -19,6 +19,7 @@ jobs:
           pip install --upgrade pip
           pip install --user cython==0.29.36 buildozer
           export PATH=$PATH:~/.local/bin
+          yes | buildozer -v android debug || true
           buildozer -v android debug
 
       - uses: actions/upload-artifact@v4
