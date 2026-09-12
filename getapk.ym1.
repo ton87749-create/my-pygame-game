@@ -1,0 +1,11 @@
+name: Get APK Path
+on: workflow_dispatch
+
+jobs:
+  find-apk:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          echo "Searching for APK..."
+          find / -name "*.apk" -type f 2>/dev/null | head -n 5
