@@ -17,15 +17,24 @@ jobs:
           pip install buildozer
       - run: |
           yes | buildozer android clean
-          yes | buildozer android debug 2>&1 | tail -n 200 > buildozer.log
-      - run: |
-          find . -name "*.apk" -type f
+          yes | buildozer android debug 2>&1 | tail -n 100 > buildozer.log
+      - name: Find APK
+        run: |
+          find . -name "*.apk" -type f > apk_path.txt
+          cat apk_path.txt
       - uses: actions/upload-artifact@v4
         with:
           name: debug-apk
-          path: .buildozer/android/platform/build-*/dists/*/bin/*.apk
+          path: |
+            bin/*.apk
+            **/*.apk
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: build-log
           path: buildozer.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: apk-path
+          path: apk_path.txt
